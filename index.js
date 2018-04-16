@@ -15,29 +15,42 @@ function getDataFromApi(searchTerm, callback) {
 
 function displayTicketMasterData(data) {
   console.log(data);
-  // if (data._embedded.events[0].priceRange[0].min.val() > 20) {
-  //   console.log("too much");
-  // } else {
-  //   console.log("just right");
-  // }
-  //
+  var displayResults = $('.results');
+  data._embedded.events.forEach(function(item, index) {
+    let elem = $('.results-temp').children().clone();
+    console.log(item.name);
+    let title = (item.name);
+    $('.event-name').append(`${title}<br>`);
+  });
 
 }
 
 function watchSubmit() {
   $('.js-form').submit(event, function() {
     event.preventDefault();
-    let queryPostalCode = $(event.currentTarget).find('#zip-code');
+    let queryCity = $(event.currentTarget).find('#city');
     let queryArtistName = $(event.currentTarget).find('#artist-name');
+    let queryMyBudget = $(event.currentTarget).find('#my-budget');
+    let queryStartDate = $(event.currentTarget).find('#start-date').val().toString() + `T00:00:00Z`;
+    let queryEndDate = $(event.currentTarget).find('#end-date').val().toString() + `T00:00:00Z`;
 
+    console.log(queryStartDate);
+    $('.event-name').html('');
     let query = {
-      // keyword: queryArtistName.val(),
-      city: queryPostalCode.val(),
-      page: 3
+      keyword: queryArtistName.val(),
+      city: queryCity.val(),
+      startDateTime: queryStartDate,
+      endDateTime: queryEndDate,
+      size: 20,
+      page: 1
     };
+    // findEventsInBudget(queryMyBudget);
     console.log(query);
     getDataFromApi(query, displayTicketMasterData);
+
   });
 }
+
+
 
 $(watchSubmit);

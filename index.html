@@ -10,18 +10,37 @@
 
 <body>
   <main>
-    <form action="#" class="js-form">
-      <input type="text" class="form-input" id="zip-code" placeholder="zip">
-      <br>
-      <input type="text" class="form-input" id="artist-name" placeholder="artist">
+    <section class="container">
+      <form action="#" class="js-form">
+        <input type="text" class="form-input" id="city" placeholder="City" required>
+        <br>
+        <input type="text" class="form-input" id="artist-name" placeholder="artist">
+        <br>
+        <input type="text" class="form-input" id="my-budget" placeholder="my budget">
+        <br>
+        <input type="date" class="date-form" id="start-date" required>
 
+        <br>
+        <input type="date" class="date-form" id="end-date" required>
 
-      <br>
-      <input type="submit" class="form-button" value="submit">
-    </form>
+        <br>
+        <input type="submit" class="form-button" value="submit">
+      </form>
+    </section>
+
+    <div class="results"></div>
+
+    <div class="results-temp">
+      <div class="event-name"> </div>
+    </div>
+
   </main>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+  <script src="index.js "></script>
+
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
-<script src="index.js "></script>
+
 
 </html>
