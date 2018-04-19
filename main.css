@@ -1,4 +1,40 @@
+header {
+
+}
+
+h1 {
+  width: 50%;
+  margin: 0 auto;
+}
+
 .container {
   text-align: center;
   margin: 0 auto;
+}
+
+.my-price {
+  display:none;
+}
+
+.in-budget {
+  color: green;
+}
+
+
+.out-budget {
+  text-decoration: line-through;
+  color: red;
+}
+
+.out-budget:hover {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.more-details{
+  border: none;
+  background: none;
 }

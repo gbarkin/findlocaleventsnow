@@ -10,37 +10,25 @@
 
 <body>
   <main>
+    <header>
+      <h1>Search for events in your price range</h1>
+    </header>
     <section class="container">
       <form action="#" class="js-form">
+        <input type="number" class="my-budget" id="my-budget" required placeholder="Max Spend">
+        <br>
         <input type="text" class="form-input" id="city" placeholder="City" required>
         <br>
-        <input type="text" class="form-input" id="artist-name" placeholder="artist">
-        <br>
         <input type="date" class="date-form" id="start-date" required>
-
-        <br>
-        <input type="date" class="date-form" id="end-date" required>
-
-        <br>
-        <input type="number" class="my-budget" id="my-budget" required placeholder="my budget">
         <br>
         <input type="submit" class="form-button" value="submit">
-
-
       </form>
     </section>
-
-    <div class="js-results"></div>
-
-
-
+    <section class="js-results"></section>
+    <div class="my-price"></div>
   </main>
-
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
   <script src="index.js "></script>
-
 </body>
-
 
 </html>
