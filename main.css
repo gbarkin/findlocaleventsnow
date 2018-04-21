@@ -1,6 +1,4 @@
-header {
-
-}
+header {}
 
 h1 {
   width: 50%;
@@ -13,16 +11,14 @@ h1 {
 }
 
 .my-price {
-  display:none;
+  display: none;
 }
 
 .in-budget {
   color: green;
 }
 
-
 .out-budget {
-  text-decoration: line-through;
   color: red;
 }
 
@@ -34,7 +30,11 @@ ul {
   list-style-type: none;
 }
 
-.more-details{
+.more-details {
   border: none;
   background: none;
 }
+
+/* .more-info {
+  display: none;
+} */
