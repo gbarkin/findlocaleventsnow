@@ -58,7 +58,6 @@ budgetEvents = {
       if (returnData === true) {
         let results = data._embedded.events.map(function(item) {
           // start youtube get
-
           return budgetEvents.renderResult(item)
 
 

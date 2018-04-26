@@ -3,9 +3,12 @@
 
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Event Budget</title>
 
   <link rel="stylesheet" href="main.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 </head>
 
 <body>
@@ -13,20 +16,38 @@
     <header>
       <h1>Search for events in your price range</h1>
     </header>
-    <section class="container">
+
+    <section class="form-container">
+
       <form action="#" class="js-form">
-        <input type="number" class="my-budget" id="my-budget" required placeholder="Max Spend">
-        <br>
+        <input type="number" class="form-input" id="my-budget" required placeholder="Max Spend">
+
         <input type="text" class="form-input" id="city" placeholder="City" required>
-        <br>
-        <input type="submit" class="form-button" value="submit">
+
+        <input type="date" class="form-input" id='today-date' placeholder="Date">
+
+        <input type="submit" class="form-input" value="submit">
       </form>
+
+
     </section>
-    <section class="js-results"></section>
-    <div class="my-price"></div>
+
+
+
+    <section class="result-container">
+      <div id="accordion">
+      </div>
+    </section>
+
+
+
+
   </main>
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
   <script src="index2.js "></script>
+
+
 </body>
 
 </html>
