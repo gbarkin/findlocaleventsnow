@@ -16,9 +16,7 @@ body {
   background-color: #D7CEC7;
 }
 
-#accordion {
-  background-color: #D7CEC7;
-}
+#accordion {}
 
 .accordion, p {
   background-color: #D7CEC7;
@@ -54,6 +52,10 @@ h1 {
   margin: 0 auto;
 }
 
+h2 {
+  font-size: 16px;
+}
+
 button:focus {
   outline: 0;
 }
@@ -67,8 +69,8 @@ button:focus {
   border-style: solid;
   border-color: #D7CEC7;
   width: 80%;
-  display: flex;
-  justify-content: space-between;
+  /* display: flex;
+  justify-content: space-between; */
   cursor: pointer;
 }
 
@@ -83,4 +85,26 @@ button:focus {
   color: #565656;
   margin: 0 auto;
   width: 76%;
+}
+
+.event-price {
+  position: relative;
+  float: right;
+}
+
+.event-name {
+  position: relative;
+  left: 10%;
+}
+
+.instructions p {
+  font-size: 35px;
+  text-align: center;
+  padding-left: 20px;
+  color: #565656;
+}
+
+.accordion-content {
+  display: flex;
+  justify-content: space-between;
 }
