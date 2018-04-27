@@ -29,7 +29,7 @@ function watchSubmit() {
       city: queryCity.val(),
       radius: 100,
       startDateTime: `${myDate}T09:00:00Z`,
-      size: 100,
+      size: 20,
       page: 0
     };
     // getDataFrom Api ticketmaster
@@ -72,8 +72,8 @@ function renderResult(results) {
     let eventPrice = Number(results.priceRanges[0].min);
     if (eventPrice < myBudget) {
       return `
-    <h2 class="accordion-toggle"> Date: ${results.dates.start.localDate}</span><span class="event-name">${results.name}.</span><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
-    <div class="accordion-content">
+    <h2 class="accordion-toggle shadow"> Date: ${results.dates.start.localDate}</span><span class="event-name">${results.name}.</span><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
+    <div class="accordion-content shadow">
     <div class="event-date-time">
       <p>  ${results.dates.start.localDate}</p>
       <p>Time:${results.dates.start.localTime}</p>
@@ -81,7 +81,10 @@ function renderResult(results) {
       <div class="event-price-venue">
       <p>Price: $${results.priceRanges[0].min}</p>
       <p>Venue: ${results._embedded.venues[0].name}</p>
+      <div class="video-placeholder"><img src="img/vid-placeholder.png"></div>
       </div>
+
+
       <div class="vid-content"></div>
     </div>`;
     } else {
@@ -90,15 +93,18 @@ function renderResult(results) {
 
   } else {
     return `
-  <h2 class="accordion-toggle"> Date: ${results.dates.start.localDate}</span><span class="event-name">${results.name}.</span><span class="event-date"><span class="event-price"> Price Unavailable</span></h2>
-    <div class="accordion-content">
+  <h2 class="accordion-toggle shadow"> Date: ${results.dates.start.localDate}</span><span class="event-name">${results.name}.</span><span class="event-date"><span class="event-price"> Price Unavailable</span></h2>
+    <div class="accordion-content shadow">
     <div class="event-date-time">
       <p>  ${results.dates.start.localDate}</p>
       <p>Time:${results.dates.start.localTime}</p>
       </div>
       <div class="event-price-venue">
+      <p>Price: $unavailable</p>
       <p>Venue: ${results._embedded.venues[0].name}</p>
+      <div class="video-placeholder"><img src="img/vid-placeholder.png"></div>
       </div>
+
       <div class="vid-content"></div>
     </div>`;
   }
@@ -111,6 +117,7 @@ function accordionSetup() {
   $('#accordion').find('.accordion-toggle').click(function() {
     $('.vid-content').hide();
     let eventName = $(event.currentTarget).find('.event-name').text();
+
     getDataFromYoutube(eventName, youtubeData);
     $(this).next().slideToggle('fast');
     $(".accordion-content").not($(this).next()).slideUp('fast');
@@ -118,16 +125,16 @@ function accordionSetup() {
 }
 
 function youtubeData(data) {
-  console.log(data);
-  let videoPrev = data.items[0].videoId;
+  let videoPrev = data.items[0].id.videoId;
+  console.log(videoPrev);
   // console.log();
   $('.vid-content').show();
-  $('.vid-content').html(`<iframe id="ytplayer" type="text/html" width="360" height="202.5" src="https://www.youtube.com/embed/fOERHGU4aF4" frameborder="0" allowfullscreen>`);
+  $('.vid-content').html(`<iframe id="ytplayer" type="text/html" width="360" height="202.5" src="https://www.youtube.com/embed/${videoPrev}" frameborder="0" allowfullscreen>`);
 }
 
 
 function getDataFromYoutube(item, youtubeData) {
-  console.log(item);
+  // console.log(item);
   let search = {
     url: Youtube_URL,
     data: {
