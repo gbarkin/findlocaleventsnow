@@ -2,34 +2,33 @@ const TicketMaster_URL = "https://app.ticketmaster.com/discovery/v2/events.json?
 
 const Youtube_URL = "https://www.googleapis.com/youtube/v3/search"
 
-//shrink inputs
-//add header to columns
-//make key/value bold
-// add labels for the form
-// form for submiting new event
+
 function watchSubmit() {
   $('.js-form').submit(event, function() {
     event.preventDefault();
+    $('#accordion').html(" ");
     $('.instructions').hide();
-
+    $('.hide-element').removeClass('hide-element');
     // clear out previous data
-    $('.event-name').html('');
+    // $('.event-name').html('');
+
 
     // assign form data to variables
-    let queryCity = $('#city');
-    let queryArtistName = $('#artist-name');
+    let queryZip = $('#zip');
     let myBudget = $('#my-budget');
     let myDate = $('#today-date').val();
+    let myRadius = $('#my-rad');
+
 
     // query for ticketmaster call
     // todo validate entry, try catch
     let query = {
       sort: 'date,asc',
-      keyword: queryArtistName.val(),
-      city: queryCity.val(),
-      radius: 100,
+      postalCode: queryZip.val(),
+      radius: myRadius.val(),
+      unit: 'miles',
       startDateTime: `${myDate}T09:00:00Z`,
-      size: 100,
+      size: 200,
       page: 0
     };
     // getDataFrom Api ticketmaster
@@ -47,60 +46,95 @@ function getDataFromApi(searchTerm, callback) {
     //check is json is default
     dataType: "json",
     //todo add error callback 'non-success'
-    success: buildTicketMasterData
+    error: function(xhr, error) {
+      console.debug(xhr);
+      console.debug(error);
+    },
+    success: validateTicketMasterData
   };
   $.ajax(settings);
 }
 
-// callback for the ticket master data
-// build ticket master data
-function buildTicketMasterData(data) {
+
+function validateTicketMasterData(data) {
   if (data._embedded) {
-    let results = data._embedded.events.map(function(item) {
-      return renderResult(item);
-    });
-    $('#accordion').html(results);
-    accordionSetup();
+    buildTicketMasterData(data);
+  } else {
+    // notify user if there are no results
+    $('.missing-results').html(`<div class="no-results">
+  <p>  No results returned in your zip code.</p><p>  Please try a different zip code.</p></div>`);
+
 
   }
 }
-//clean data etc prior to moving data to template
+
+// build ticket master data
+function buildTicketMasterData(data) {
+  let dataFix = data._embedded.events.map(function(item) {
+
+    if (item.priceRanges) {
+      return item;
+    } else {
+      item.priceRanges = [{
+        "min": "-not listed"
+      }];
+      return item;
+    }
+  });
+  displayTicketMasterData(dataFix);
+}
+
+
+
+
+// setting up the data to display
+
+function displayTicketMasterData(data) {
+  console.log(data);
+  let results = data.map(function(item) {
+
+    return renderResult(item);
+  });
+  $('#accordion').html(results);
+  checkResults();
+}
+
+
+
+function checkResults() {
+  let count = $('.accordion-toggle').length
+  console.log(count);
+  $('.result-count').html(`${count} events shown.`);
+  accordionSetup();
+  if (count === 0) {
+    $('.missing-results').html(`<div class="no-results">
+  <p>  No results returned in your zip code.</p><p>  Please try a different zip code.</p></div>`);
+  }
+}
+
+
+
+
 
 function renderResult(results) {
   let myBudget = $('#my-budget').val();
-  if (results.priceRanges) {
-    let eventPrice = Number(results.priceRanges[0].min);
-    if (eventPrice < myBudget) {
-      return `
-    <h2 class="accordion-toggle"> Date: ${results.dates.start.localDate}</span><span class="event-name">${results.name}.</span><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
-    <div class="accordion-content">
-    <div class="event-date-time">
-      <p>  ${results.dates.start.localDate}</p>
-      <p>Time:${results.dates.start.localTime}</p>
-      </div>
-      <div class="event-price-venue">
-      <p>Price: $${results.priceRanges[0].min}</p>
-      <p>Venue: ${results._embedded.venues[0].name}</p>
-      </div>
-      <div class="vid-content"></div>
-    </div>`;
-    } else {
-      console.log("to be determined")
-    }
-
-  } else {
+  let eventPrice = Number(results.priceRanges[0].min);
+  if (eventPrice < myBudget) {
     return `
-  <h2 class="accordion-toggle"> Date: ${results.dates.start.localDate}</span><span class="event-name">${results.name}.</span><span class="event-date"><span class="event-price"> Price Unavailable</span></h2>
-    <div class="accordion-content">
-    <div class="event-date-time">
-      <p>  ${results.dates.start.localDate}</p>
-      <p>Time:${results.dates.start.localTime}</p>
+    <h2 class="accordion-toggle shadow">${results.dates.start.localDate}<div class="event-name">${results.name}.</div><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
+    <div class="accordion-content shadow">
+    <div class="event-info">
+      <p><span class="event-info-format">Date</span>:  ${results.dates.start.localDate}</p>
+      <p><span class="event-info-format">Time</span>:  ${results.dates.start.localTime}</p>
+      <p><span class="event-info-format">Price</span>:  $${results.priceRanges[0].min}</p>
+      <p><span class="event-info-format">Venue</span>:  ${results._embedded.venues[0].name}</p>
+      <p><span class="event-info-format"><a href="${results.url}" target="_blank">Get Tickets</a></span></p>
       </div>
-      <div class="event-price-venue">
-      <p>Venue: ${results._embedded.venues[0].name}</p>
-      </div>
-      <div class="vid-content"></div>
+
+      <div class="vid-content"><img src=""</div>
     </div>`;
+  } else {
+    return
   }
 }
 
@@ -111,6 +145,7 @@ function accordionSetup() {
   $('#accordion').find('.accordion-toggle').click(function() {
     $('.vid-content').hide();
     let eventName = $(event.currentTarget).find('.event-name').text();
+
     getDataFromYoutube(eventName, youtubeData);
     $(this).next().slideToggle('fast');
     $(".accordion-content").not($(this).next()).slideUp('fast');
@@ -118,16 +153,16 @@ function accordionSetup() {
 }
 
 function youtubeData(data) {
-  console.log(data);
-  let videoPrev = data.items[0].videoId;
+  let videoPrev = data.items[0].id.videoId;
+  console.log(videoPrev);
   // console.log();
   $('.vid-content').show();
-  $('.vid-content').html(`<iframe id="ytplayer" type="text/html" width="360" height="202.5" src="https://www.youtube.com/embed/fOERHGU4aF4" frameborder="0" allowfullscreen>`);
+  $('.vid-content').html(`<p>Top Result on Youtube</p><iframe id="ytplayer" type="text/html" width="100%" height="auto" src="https://www.youtube.com/embed/${videoPrev}" frameborder="0" allowfullscreen>`);
 }
 
 
 function getDataFromYoutube(item, youtubeData) {
-  console.log(item);
+  // console.log(item);
   let search = {
     url: Youtube_URL,
     data: {
@@ -138,6 +173,10 @@ function getDataFromYoutube(item, youtubeData) {
       'type': 'video'
     },
     type: 'GET',
+    error: function(xhr, error) {
+      console.debug(xhr);
+      console.debug(error);
+    },
     success: youtubeData
   };
 
