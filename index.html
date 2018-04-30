@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Budget</title>
+
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="responsive.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Search for events in your price range</h1>
+  </header>
+  <main>
+    <section class="search-form">
+
+
+      <div class="form-container shadow">
+
+        <form action="#" class="js-form">
+          <div class="form-layout">
+            <label for="my-budget">Max Budget:</label>
+            <input type="number" class="form-input" id="my-budget" required placeholder="$0">
+          </div>
+          <div class="form-layout">
+            <label for="zip">Zip Code:</label>
+            <input type="text" class="form-input" id="zip" placeholder="Zip Code" required>
+          </div>
+          <div class="form-layout">
+            <label for="today-date">Date:</label>
+            <input type="date" class="form-input" id='today-date' required>
+          </div>
+          <div class="form-layout">
+            <input type="submit" class="form-input" id="submit-button" value="Search">
+          </div>
+          <div class="form-layout">
+            <input type="text" class="form-input" id="my-rad" value="10">
+          </div>
+          <div class="form-layout">
+            <div class="result-count">Search for events.</div>
+            <p>Select Event for detail.</p>
+
+        </form>
+
+
+        </div>
+    </section>
+    <section class="instructions shadow">
+      <p>Welcome to the Right Price Events app.</p>
+      <p>In this application you can find events, like concerts, games and plays, that fit your budget.</p>
+
+    </section>
+
+    <section class="result-container hide-element">
+
+      <div id="accordion">
+      </div>
+    </section>
+
+
+
+
+  </main>
+  <div class="missing-results">
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+  <script src="index2.js "></script>
+
+
+</body>
+
+</html>

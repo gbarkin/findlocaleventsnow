@@ -1,0 +1,157 @@
+@media (min-width: 550px) {
+  .form-layout {
+    display: flex;
+    flex-direction: column;
+    background-color: #bc986a;
+    text-align: left;
+  }
+  .form-container {
+    margin-top: 10px;
+    width: 200px;
+    padding: 5px;
+    position: fixed;
+    z-index: 1;
+    overflow-x: hidden;
+    background-color: #bc986a;
+  }
+  .accordion-toggle {
+    background-color: #4887B0;
+    font-size: 16px;
+    color: white;
+    padding: 10px;
+    margin-left: 220px;
+    margin-top: 4px;
+    border-top: 3px solid white;
+    width: 58%;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .accordion-content {
+    display: flex;
+    flex: row;
+    justify-content: space-between;
+    margin-top: 0px;
+    padding: 5px;
+    margin-left: 220px;
+    background-color: #FBEEC1;
+    border: 3px solid #4887B0;
+    color: #565656;
+    width: 58%
+    /* width: 100%; */
+  }
+  /* .result-container {
+  displ
+
+} */
+  .instructions {
+    background-color: #4887B0;
+    color: white;
+    padding: 10px;
+    margin-bottom: 5px;
+    margin-left: 250px;
+    margin-top: 5%;
+    min-height: 300px;
+    font-size: 30px;
+    text-align: center;
+  }
+  .event-price {
+    position: relative;
+    float: right;
+  }
+  .event-name {
+    position: relative;
+    display: inline-block;
+    left: 10%;
+    width: 50%;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .vid-content {
+    width: 60%;
+    max-width: 400px;
+    height: auto;
+    padding-right: 50px;
+  }
+  .event-info {
+    width: 50%;
+    padding-left: 20px;
+    font-size: 16px;
+    padding-right: 10px;
+  }
+  .event-info-format {
+    font-weight: 900;
+    font-style: italic;
+    text-decoration: underline;
+  }
+  .shadow {
+    -moz-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+    -webkit-box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=3, MakeShadow=true, ShadowOpacity=0.30);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Blur(PixelRadius=3,MakeShadow=true,ShadowOpacity=0.30)";
+    zoom: 1;
+  }
+}
+
+@media (max-width: 550px) {
+  p {
+    margin: 0px;
+    padding: 0px;
+  }
+  .instructions {
+    font-size: 16px;
+    margin: 0 auto;
+    width: 100%;
+    margin-top: 10px;
+  }
+  h1 {
+    font-size: 5vw;
+  }
+  .accordion-toggle {
+    font-size: 4vw;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    padding: 5px;
+    justify-content: space-between;
+  }
+  .result-container {
+    margin-top: 5px;
+    background-color: #FFFFFF;
+  }
+  .event-name {
+    left: 10%;
+    width: 100%;
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+  }
+  .js-form {
+    margin: 0 auto;
+    width: 100%;
+  }
+  .form-container {
+    background-color: #bc986a;
+  }
+  .form-layout {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    margin: 0 auto;
+  }
+  .accordion-content {
+    padding: 10px;
+    display: flex;
+    flex-flow: column;
+    background-color: #FBEEC1;
+    border: 3px solid #4887B0;
+    color: #565656;
+    width: 100%;
+  }
+  .event-info {
+    padding: 5px;
+    display: flex;
+    flex-flow: column;
+  }
+}
