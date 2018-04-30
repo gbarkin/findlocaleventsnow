@@ -14,20 +14,27 @@ function watchSubmit() {
 
 
     // assign form data to variables
-    let queryZip = $('#zip');
-    let myBudget = $('#my-budget');
+    let myCity = $('#city');
+    let myState = $('#state');
     let myDate = $('#today-date').val();
-    let myRadius = $('#my-rad');
+    let newDate = new Date(myDate);
+    newDate.setDate(newDate.getDate() + 5);
+    console.log(newDate)
+    let endDate = newDate.toISOString();
+    let shortDate = endDate.substr(0,10);
+
 
 
     // query for ticketmaster call
     // todo validate entry, try catch
     let query = {
       sort: 'date,asc',
-      postalCode: queryZip.val(),
-      radius: myRadius.val(),
+      city: myCity.val(),
+      stateCode: myState.val(),
+      radius: 15,
       unit: 'miles',
-      startDateTime: `${myDate}T09:00:00Z`,
+      startDateTime: `${myDate}T00:00:01Z`,
+      endDateTime: `${shortDate}T00:00:01Z`,
       size: 200,
       page: 0
     };
@@ -61,7 +68,7 @@ function validateTicketMasterData(data) {
     buildTicketMasterData(data);
   } else {
     // notify user if there are no results
-    $('.missing-results').html(`<div class="no-results">
+    $('.missing-results').html(`<div class="no-results shadow">
   <p>  No results returned in your zip code.</p><p>  Please try a different zip code.</p></div>`);
 
 
@@ -117,9 +124,9 @@ function checkResults() {
 
 
 function renderResult(results) {
-  let myBudget = $('#my-budget').val();
-  let eventPrice = Number(results.priceRanges[0].min);
-  if (eventPrice < myBudget) {
+  // let myBudget = $('#my-budget').val();
+  // let eventPrice = Number(results.priceRanges[0].min);
+  // if (eventPrice < myBudget) {
     return `
     <h2 class="accordion-toggle shadow">${results.dates.start.localDate}<div class="event-name">${results.name}.</div><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
     <div class="accordion-content shadow">
@@ -133,17 +140,18 @@ function renderResult(results) {
 
       <div class="vid-content"><img src=""</div>
     </div>`;
-  } else {
-    return
   }
-}
+//   else {
+//     return
+//   }
+// }
 
 
 function accordionSetup() {
   $(".accordion-content").hide();
 
   $('#accordion').find('.accordion-toggle').click(function() {
-    $('.vid-content').hide();
+    $('.vid-content').html('');
     let eventName = $(event.currentTarget).find('.event-name').text();
 
     getDataFromYoutube(eventName, youtubeData);
@@ -186,7 +194,7 @@ function getDataFromYoutube(item, youtubeData) {
 
 
 
-
+// need to add validation prior to submitting
 
 $(document).ready(function() {
   $(watchSubmit)

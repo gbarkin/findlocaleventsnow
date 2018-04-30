@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Event Budget</title>
+  <title>Local to Me</title>
 
   <link rel="stylesheet" href="main.css">
   <link rel="stylesheet" href="responsive.css">
@@ -15,7 +15,7 @@
 <body>
 
   <header>
-    <h1>Search for events in your price range</h1>
+    <h1>Search for events in your area</h1>
   </header>
   <main>
     <section class="search-form">
@@ -24,13 +24,17 @@
       <div class="form-container shadow">
 
         <form action="#" class="js-form">
-          <div class="form-layout">
+          <!-- <div class="form-layout">
             <label for="my-budget">Max Budget:</label>
-            <input type="number" class="form-input" id="my-budget" required placeholder="$0">
+            <input type="number" class="form-input" id="my-budget"  placeholder="$0">
+          </div> -->
+          <div class="form-layout">
+            <label for="zip">City:</label>
+            <input type="text" class="form-input" id="City" placeholder="City" required>
           </div>
           <div class="form-layout">
-            <label for="zip">Zip Code:</label>
-            <input type="text" class="form-input" id="zip" placeholder="Zip Code" required>
+            <label for="state">State:</label>
+            <input type="text" class="form-input" id="state" placeholder="state" required>
           </div>
           <div class="form-layout">
             <label for="today-date">Date:</label>
@@ -40,20 +44,19 @@
             <input type="submit" class="form-input" id="submit-button" value="Search">
           </div>
           <div class="form-layout">
-            <input type="text" class="form-input" id="my-rad" value="10">
-          </div>
-          <div class="form-layout">
-            <div class="result-count">Search for events.</div>
-            <p>Select Event for detail.</p>
+            <div class="result-count"></div>
+</div>
 
         </form>
 
 
-        </div>
+
     </section>
     <section class="instructions shadow">
-      <p>Welcome to the Right Price Events app.</p>
-      <p>In this application you can find events, like concerts, games and plays, that fit your budget.</p>
+      <p>Welcome to Local to Me</p>
+      <p>In this application you can find ticketmaster events in your area in the next 2 weeks.</p>
+        <p> Search by zip code and date, to see all types of events in your area.</p>
+      <p>Click the event to see more event details, and to view a related video.  </p>
 
     </section>
 
