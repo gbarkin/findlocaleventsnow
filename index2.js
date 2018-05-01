@@ -59,7 +59,7 @@ function collectFormData() {
     unit: 'miles',
     startDateTime: `${myDate}T00:00:00Z`,
     endDateTime: `${shortDate}T00:00:00Z`,
-    size: 65,
+    size: 40,
     page: 0
   };
   // getDataFrom Api ticketmaster
