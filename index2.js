@@ -1,46 +1,69 @@
+//ticketmaster endpoint
 const TicketMaster_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=Bnj4KVp4eI7WxBdAPABGCMGAv46XIDD6"
-
+//youtube endpoint
 const Youtube_URL = "https://www.googleapis.com/youtube/v3/search"
+//state ids for validation
+const stateID = ['AK', 'NC', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY', 'AS', 'GU', 'MP', 'PR', 'VI', 'UM', 'FM', 'MH', 'PW']
 
-
-function watchSubmit() {
+//Checks that the state is correct
+function validateFormData() {
   $('.js-form').submit(event, function() {
     event.preventDefault();
-    $('#accordion').html(" ");
-    $('.instructions').hide();
-    $('.hide-element').removeClass('hide-element');
-    // clear out previous data
-    // $('.event-name').html('');
-
-
-    // assign form data to variables
-    let myCity = $('#city');
-    let myState = $('#state');
-    let myDate = $('#today-date').val();
-    let newDate = new Date(myDate);
-    newDate.setDate(newDate.getDate() + 5);
-    console.log(newDate)
-    let endDate = newDate.toISOString();
-    let shortDate = endDate.substr(0,10);
-
-
-
-    // query for ticketmaster call
-    // todo validate entry, try catch
-    let query = {
-      sort: 'date,asc',
-      city: myCity.val(),
-      stateCode: myState.val(),
-      radius: 15,
-      unit: 'miles',
-      startDateTime: `${myDate}T00:00:01Z`,
-      endDateTime: `${shortDate}T00:00:01Z`,
-      size: 200,
-      page: 0
+    let myState = $('#state').val().toUpperCase();
+    if (stateID.includes(myState)) {
+      collectFormData();
+    } else {
+      $('#state-error').html("enter valid state");
+      $('#state').addClass('error');
     };
-    // getDataFrom Api ticketmaster
-    getDataFromApi(query, buildTicketMasterData);
   });
+}
+
+//sets today's date as default
+
+function setDate() {
+  let today = new Date().toISOString().substr(0, 10);
+  document.querySelector("#today-date").valueAsDate = new Date();
+}
+
+
+//prepare form data for GET
+function collectFormData() {
+  $('#state-error').html("");
+  $('#accordion').html(" ");
+  $('.instructions').hide();
+  $('.hide-element').removeClass('hide-element');
+
+
+
+  // assign form data to variables
+  let myCity = $('#city');
+  let myState = $('#state');
+  let myDate = $('#today-date').val();
+  let newDate = new Date(myDate);
+
+  //create new date
+  newDate.setDate(newDate.getDate() + 5);
+  //convert new date
+  let endDate = newDate.toISOString();
+  let shortDate = endDate.substr(0, 10);
+
+
+
+  // query for ticketmaster GET
+  let query = {
+    sort: 'date,asc',
+    city: myCity.val(),
+    stateCode: myState.val(),
+    radius: 10,
+    unit: 'miles',
+    startDateTime: `${myDate}T00:00:00Z`,
+    endDateTime: `${shortDate}T00:00:00Z`,
+    size: 100,
+    page: 0
+  };
+  // getDataFrom Api ticketmaster
+  getDataFromApi(query, buildTicketMasterData);
 }
 
 // API request to TicketMaster
@@ -62,7 +85,7 @@ function getDataFromApi(searchTerm, callback) {
   $.ajax(settings);
 }
 
-
+//Checks that data returned as expected
 function validateTicketMasterData(data) {
   if (data._embedded) {
     buildTicketMasterData(data);
@@ -75,7 +98,7 @@ function validateTicketMasterData(data) {
   }
 }
 
-// build ticket master data
+// build ticket master data add missing pricing element
 function buildTicketMasterData(data) {
   let dataFix = data._embedded.events.map(function(item) {
 
@@ -109,25 +132,25 @@ function displayTicketMasterData(data) {
 
 
 function checkResults() {
-  let count = $('.accordion-toggle').length
+  //count number of div results
+  let count = $('.accordion-toggle').length;
   console.log(count);
+
+  //display number of results
   $('.result-count').html(`${count} events shown.`);
-  accordionSetup();
+
   if (count === 0) {
     $('.missing-results').html(`<div class="no-results">
   <p>  No results returned in your zip code.</p><p>  Please try a different zip code.</p></div>`);
   }
+
+  accordionSetup();
 }
 
 
-
-
-
+//render the results for the page
 function renderResult(results) {
-  // let myBudget = $('#my-budget').val();
-  // let eventPrice = Number(results.priceRanges[0].min);
-  // if (eventPrice < myBudget) {
-    return `
+  return `
     <h2 class="accordion-toggle shadow">${results.dates.start.localDate}<div class="event-name">${results.name}.</div><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
     <div class="accordion-content shadow">
     <div class="event-info">
@@ -140,26 +163,27 @@ function renderResult(results) {
 
       <div class="vid-content"><img src=""</div>
     </div>`;
-  }
-//   else {
-//     return
-//   }
-// }
+}
 
 
+//setup accordion to display results
 function accordionSetup() {
   $(".accordion-content").hide();
 
+  //method for hiding and showing the accordion
   $('#accordion').find('.accordion-toggle').click(function() {
     $('.vid-content').html('');
     let eventName = $(event.currentTarget).find('.event-name').text();
 
+    //on click, look up youtube video
     getDataFromYoutube(eventName, youtubeData);
     $(this).next().slideToggle('fast');
     $(".accordion-content").not($(this).next()).slideUp('fast');
   });
 }
 
+
+//manage the youtube data, add to event div
 function youtubeData(data) {
   let videoPrev = data.items[0].id.videoId;
   console.log(videoPrev);
@@ -168,7 +192,7 @@ function youtubeData(data) {
   $('.vid-content').html(`<p>Top Result on Youtube</p><iframe id="ytplayer" type="text/html" width="100%" height="auto" src="https://www.youtube.com/embed/${videoPrev}" frameborder="0" allowfullscreen>`);
 }
 
-
+//get data from youtube api
 function getDataFromYoutube(item, youtubeData) {
   // console.log(item);
   let search = {
@@ -194,11 +218,8 @@ function getDataFromYoutube(item, youtubeData) {
 
 
 
-// need to add validation prior to submitting
-
 $(document).ready(function() {
-  $(watchSubmit)
-  let today = new Date().toISOString().substr(0, 10);
-  document.querySelector("#today-date").valueAsDate = new Date();
-  console.log("ready")
+  $(validateFormData);
+  $(setDate);
+  console.log("ready");
 });

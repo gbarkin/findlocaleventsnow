@@ -12,7 +12,6 @@
     z-index: 1;
     overflow-x: hidden;
     background-color: #bc986a;
-
   }
   .accordion-toggle {
     background-color: #4887B0;
@@ -37,12 +36,7 @@
     border: 3px solid #4887B0;
     color: #565656;
     width: 58%
-    /* width: 100%; */
   }
-  /* .result-container {
-  displ
-
-} */
   .instructions {
     background-color: #4887B0;
     color: white;
@@ -50,7 +44,7 @@
     padding: 10px;
     margin-left: 220px;
     margin-top: 80px;
-    font-size: 30px;
+    font-size: 26px;
     text-align: center;
   }
   .event-price {
@@ -62,7 +56,6 @@
     display: inline-block;
     left: 10%;
     width: 50%;
-    /* white-space: nowrap; */
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -105,11 +98,9 @@
     margin-top: 40px;
     padding: 6px;
   }
-.instructions, p {
-  margin-top: 10px;
-
-}
-
+  .instructions, p {
+    margin-top: 10px;
+  }
   h1 {
     font-size: 5vw;
   }
@@ -138,7 +129,7 @@
   }
   .form-container {
     background-color: #bc986a;
-    margin-top:60px;
+    margin-top: 60px;
     width: 100%;
   }
   .form-layout {
