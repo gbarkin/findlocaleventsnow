@@ -26,6 +26,15 @@ function setDate() {
   document.querySelector("#today-date").valueAsDate = new Date();
 }
 
+//progress waiting
+
+$('body').ajaxStart(function() {
+$(this).css({'cursor':'wait'})
+}).ajaxStop(function() {
+$(this).css({'cursor':'default'})
+});
+
+
 
 //prepare form data for GET
 function collectFormData() {
