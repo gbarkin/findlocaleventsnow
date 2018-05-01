@@ -12,6 +12,7 @@ function validateFormData() {
     let myState = $('#state').val().toUpperCase();
     if (stateID.includes(myState)) {
       collectFormData();
+      addClickInstructions();
     } else {
       $('#state-error').html("enter valid state");
       $('#state').addClass('error');
@@ -19,20 +20,16 @@ function validateFormData() {
   });
 }
 
+
+function addClickInstructions(){
+  $('h1').append('Click an event below to show more details.')
+}
 //sets today's date as default
 
 function setDate() {
   let today = new Date().toISOString().substr(0, 10);
   document.querySelector("#today-date").valueAsDate = new Date();
 }
-
-//progress waiting
-
-$('body').ajaxStart(function() {
-$(this).css({'cursor':'wait'})
-}).ajaxStop(function() {
-$(this).css({'cursor':'default'})
-});
 
 
 
@@ -42,6 +39,7 @@ function collectFormData() {
   $('#accordion').html(" ");
   $('.instructions').hide();
   $('.hide-element').removeClass('hide-element');
+
 
 
 
@@ -132,6 +130,7 @@ function displayTicketMasterData(data) {
   console.log(data);
   let results = data.map(function(item) {
 
+
     return renderResult(item);
   });
   $('#accordion').html(results);
@@ -159,11 +158,15 @@ function checkResults() {
 
 //render the results for the page
 function renderResult(results) {
+  let adjustedDate = results.dates.start.localDate;
+  let splitDate = adjustedDate.split("");
+  console.log(splitDate);
+  let correctDate = ([splitDate[5],splitDate[6],splitDate[7],splitDate[8],splitDate[9],splitDate[7],splitDate[0],splitDate[1],splitDate[2],splitDate[3]]).join("");
   return `
-    <h2 class="accordion-toggle shadow">${results.dates.start.localDate}<div class="event-name">${results.name}.</div><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
+    <h2 class="accordion-toggle shadow">${correctDate}<div class="event-name">${results.name}.</div><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
     <div class="accordion-content shadow">
     <div class="event-info">
-      <p><span class="event-info-format">Date</span>:  ${results.dates.start.localDate}</p>
+      <p><span class="event-info-format">Date</span>:  ${correctDate}</p>
       <p><span class="event-info-format">Time</span>:  ${results.dates.start.localTime}</p>
       <p><span class="event-info-format">Price</span>:  $${results.priceRanges[0].min}</p>
       <p><span class="event-info-format">Venue</span>:  ${results._embedded.venues[0].name}</p>
@@ -220,7 +223,7 @@ function getDataFromYoutube(item, youtubeData) {
     },
     success: youtubeData
   };
-
+$('.toggle-container').addClass('progress');
   $.ajax(search);
 
 }
