@@ -21,8 +21,9 @@ function validateFormData() {
 }
 
 
-function addClickInstructions(){
-  $('h1').append('Click an event below to show more details.')
+function addClickInstructions() {
+  $('.click-instructions').append('Click on events for more information.')
+  $('.click-instructions').removeClass('hide - element');
 }
 //sets today's date as default
 
@@ -146,7 +147,7 @@ function checkResults() {
 
   //display number of results
   $('.result-count').html(`${count} events shown.`);
-
+  $('.click-instructions-2').append('Click on events below for more information.')
   if (count === 0) {
     $('.missing-results').html(`<div class="no-results">
   <p>  No results returned in your zip code.</p><p>  Please try a different zip code.</p></div>`);
@@ -161,9 +162,9 @@ function renderResult(results) {
   let adjustedDate = results.dates.start.localDate;
   let splitDate = adjustedDate.split("");
   console.log(splitDate);
-  let correctDate = ([splitDate[5],splitDate[6],splitDate[7],splitDate[8],splitDate[9],splitDate[7],splitDate[0],splitDate[1],splitDate[2],splitDate[3]]).join("");
+  let correctDate = ([splitDate[5], splitDate[6], splitDate[7], splitDate[8], splitDate[9], splitDate[7], splitDate[0], splitDate[1], splitDate[2], splitDate[3]]).join("");
   return `
-    <h2 class="accordion-toggle shadow">${correctDate}<div class="event-name">${results.name}.</div><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
+    <h2 class="accordion-toggle shadow cursor-events">${correctDate}<div class="event-name">${results.name}.</div><span class="event-date"><span class="event-price"> $${results.priceRanges[0].min}</span></h2>
     <div class="accordion-content shadow">
     <div class="event-info">
       <p><span class="event-info-format">Date</span>:  ${correctDate}</p>
@@ -185,6 +186,7 @@ function accordionSetup() {
   //method for hiding and showing the accordion
   $('#accordion').find('.accordion-toggle').click(function() {
     $('.vid-content').html('');
+    $('.accordion-toggle').removeClass('cursor-events');
     let eventName = $(event.currentTarget).find('.event-name').text();
 
     //on click, look up youtube video
@@ -202,6 +204,7 @@ function youtubeData(data) {
   // console.log();
   $('.vid-content').show();
   $('.vid-content').html(`<p>Top Result on Youtube</p><iframe id="ytplayer" type="text/html" width="100%" height="auto" src="https://www.youtube.com/embed/${videoPrev}" frameborder="0" allowfullscreen>`);
+  $('.accordion-toggle').addClass('cursor-events');
 }
 
 //get data from youtube api
@@ -223,7 +226,7 @@ function getDataFromYoutube(item, youtubeData) {
     },
     success: youtubeData
   };
-$('.toggle-container').addClass('progress');
+  $('.toggle-container').addClass('progress');
   $.ajax(search);
 
 }

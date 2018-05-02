@@ -22,8 +22,11 @@
     margin-top: 4px;
     border-top: 3px solid white;
     width: 58%;
-    cursor: pointer;
     overflow: hidden;
+    cursor: progress;
+  }
+  .cursor-events {
+    cursor: pointer;
   }
   .accordion-content {
     display: flex;
@@ -40,14 +43,27 @@
   .instructions {
     background-color: #4887B0;
     color: white;
-    width: 80%;
+    width: 60%;
     padding: 10px;
-    margin-left: 220px;
+    margin-left: 260px;
     margin-top: 80px;
     font-size: 26px;
     text-align: center;
   }
-
+  .click-instructions-2 {
+    display: none;
+  }
+  .click-instructions {
+    background-color: #4887B0;
+    position: fixed;
+    color: white;
+    width: 200px;
+    padding: 10px;
+    /* margin-left: 15px; */
+    margin-top: 250px;
+    font-size: 20px;
+    text-align: center;
+  }
   .event-price {
     position: relative;
     float: right;
@@ -130,7 +146,7 @@
   }
   .form-container {
     background-color: #bc986a;
-    margin-top: 60px;
+    margin-top: 80px;
     width: 100%;
   }
   .form-layout {
@@ -138,6 +154,9 @@
     flex-direction: column;
     padding: 5px;
     margin: 0 auto;
+  }
+  .click-instructions {
+    display: none;
   }
   .accordion-content {
     padding: 10px;

@@ -114,8 +114,5 @@ button:focus {
 #state-error {
   color: #5A94B4;
 }
-.progress {
-  cursor: progress;
-}
 
 /*  drop down content*/
