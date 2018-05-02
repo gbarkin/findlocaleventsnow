@@ -19,11 +19,11 @@ The goal for "Find Local Event's Now" is to show the user events in their area, 
 ## Screenshots
 Login Screen/Landing Page:
 
-![Landing Screen](screenshots/landing_screen.png)
+![Landing Screen](screenshots/landing_screen.PNG)
 
-![Results Screen](screenshots/results_screen.png)
+![Results Screen](screenshots/results_screen.PNG)
 
-![Results Screen](screenshots/results_content_screen.png)
+![Results Screen](screenshots/results_content_screen.PNG)
 
 ## Built With
 
