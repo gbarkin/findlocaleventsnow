@@ -8,6 +8,7 @@ const stateID = ['AK', 'NC', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA
 //Checks that the state is correct
 function validateFormData() {
   $('.js-form').submit(event, function() {
+
     event.preventDefault();
     let myState = $('#state').val().toUpperCase();
     if (stateID.includes(myState)) {
@@ -17,12 +18,13 @@ function validateFormData() {
       $('#state-error').html("enter valid state");
       $('#state').addClass('error');
     };
+    $('*').addClass('cursor-progress');
   });
 }
 
 
 function addClickInstructions() {
-  $('.click-instructions').append('Click on events for more information.')
+  $('.click-instructions').html('Click on events for more information.')
   $('.click-instructions').removeClass('hide - element');
 }
 //sets today's date as default
@@ -31,7 +33,6 @@ function setDate() {
   let today = new Date().toISOString().substr(0, 10);
   document.querySelector("#today-date").valueAsDate = new Date();
 }
-
 
 
 //prepare form data for GET
@@ -141,6 +142,8 @@ function displayTicketMasterData(data) {
 
 
 function checkResults() {
+  //remove progress cursor
+  $('*').removeClass('cursor-progress');
   //count number of div results
   let count = $('.accordion-toggle').length;
   console.log(count);
@@ -159,6 +162,7 @@ function checkResults() {
 
 //render the results for the page
 function renderResult(results) {
+
   let adjustedDate = results.dates.start.localDate;
   let splitDate = adjustedDate.split("");
   console.log(splitDate);
@@ -186,14 +190,22 @@ function accordionSetup() {
   //method for hiding and showing the accordion
   $('#accordion').find('.accordion-toggle').click(function() {
     $('.vid-content').html('');
-    $('.accordion-toggle').removeClass('cursor-events');
+    //starts the progress cursor
+    $('*').addClass('cursor-progress');
+
+
+
     let eventName = $(event.currentTarget).find('.event-name').text();
 
     //on click, look up youtube video
     getDataFromYoutube(eventName, youtubeData);
     $(this).next().slideToggle('fast');
     $(".accordion-content").not($(this).next()).slideUp('fast');
+
+    //end cursor progress
+
   });
+
 }
 
 
@@ -204,7 +216,9 @@ function youtubeData(data) {
   // console.log();
   $('.vid-content').show();
   $('.vid-content').html(`<p>Top Result on Youtube</p><iframe id="ytplayer" type="text/html" width="100%" height="auto" src="https://www.youtube.com/embed/${videoPrev}" frameborder="0" allowfullscreen>`);
-  $('.accordion-toggle').addClass('cursor-events');
+
+  //stops the progress cursor
+
 }
 
 //get data from youtube api
@@ -224,9 +238,11 @@ function getDataFromYoutube(item, youtubeData) {
       console.debug(xhr);
       console.debug(error);
     },
-    success: youtubeData
+    success: youtubeData,
+    complete: function() {
+      $('*').removeClass('cursor-progress');
+    }
   };
-  $('.toggle-container').addClass('progress');
   $.ajax(search);
 
 }

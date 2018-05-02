@@ -28,6 +28,9 @@
   .cursor-events {
     cursor: pointer;
   }
+  .cursor-progress {
+    cursor: progress;
+  }
   .accordion-content {
     display: flex;
     flex: row;
