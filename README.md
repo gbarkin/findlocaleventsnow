@@ -2,7 +2,11 @@
 
 # Summary
 
-The goal for "Find Local Event's Now" is to show the user events in their area, happening today, tomorrow or up to 3 days after their search date.  The search date is the current date by default.  Users can view all different event options, and see a video related to the event from inside the app.  
+"Find Local Event's Now" is an events app that enables users to find events in their area, happening today and over the next several days.  The default the search date is the today's date.  Users can view different event options, and watch a video related to the event from inside the app.  
+
+The goal of this app is to present users with last minute entertainment options in their area.  The search incorporates all types of events limiting to results to a specific type of event.  The video gives users a preview of what to expect right in the app.
+
+
 
 # Live Demo
 
