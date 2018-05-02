@@ -10,10 +10,6 @@
   display: none;
 }
 
-main {
-  margin-top: 40px;
-}
-
 body {
   font-family: 'Ubuntu', sans-serif;
   color: #FFFFFF;
@@ -27,16 +23,6 @@ h1 {
 
 h2 {
   font-size: 16px;
-}
-
-header {
-  background-color: #bc986a;
-  left: -2px;
-  padding: 10px;
-  width: 100%;
-  position: fixed;
-  top: 1px;
-  z-index: 1;
 }
 
 .form-layout {
@@ -85,10 +71,6 @@ button:focus {
   display: none;
 }
 
-#accordion {
-  background-color: #F5F5F5
-}
-
 .accordion-toggle {
   background-color: #4887B0;
   color: white;
@@ -114,5 +96,3 @@ button:focus {
 #state-error {
   color: #5A94B4;
 }
-
-/*  drop down content*/

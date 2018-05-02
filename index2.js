@@ -1,9 +1,9 @@
 //ticketmaster endpoint
-const TicketMaster_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=Bnj4KVp4eI7WxBdAPABGCMGAv46XIDD6"
+const TICKETMASTER_URL = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=Bnj4KVp4eI7WxBdAPABGCMGAv46XIDD6"
 //youtube endpoint
-const Youtube_URL = "https://www.googleapis.com/youtube/v3/search"
+const YOUTUBE_URL = "https://www.googleapis.com/youtube/v3/search"
 //state ids for validation
-const stateID = ['AK', 'NC', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY', 'AS', 'GU', 'MP', 'PR', 'VI', 'UM', 'FM', 'MH', 'PW']
+const STATEID = ['AK', 'NC', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME', 'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM', 'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY', 'AS', 'GU', 'MP', 'PR', 'VI', 'UM', 'FM', 'MH', 'PW']
 
 //Checks that the state is correct
 function validateFormData() {
@@ -11,7 +11,7 @@ function validateFormData() {
 
     event.preventDefault();
     let myState = $('#state').val().toUpperCase();
-    if (stateID.includes(myState)) {
+    if (STATEID.includes(myState)) {
       collectFormData();
       addClickInstructions();
     } else {
@@ -26,12 +26,13 @@ function validateFormData() {
 function addClickInstructions() {
   $('.click-instructions').html('Click on events for more information.')
   $('.click-instructions').removeClass('hide - element');
+  $('.missing-results').html('')
 }
 //sets today's date as default
 
 function setDate() {
   let today = new Date().toISOString().substr(0, 10);
-  document.querySelector("#today-date").valueAsDate = new Date();
+  document.querySelector("#event-date").valueAsDate = new Date();
 }
 
 
@@ -48,7 +49,7 @@ function collectFormData() {
   // assign form data to variables
   let myCity = $('#city');
   let myState = $('#state');
-  let myDate = $('#today-date').val();
+  let myDate = $('#event-date').val();
   let newDate = new Date(myDate);
 
   //create new date
@@ -80,7 +81,7 @@ function collectFormData() {
 function getDataFromApi(searchTerm, callback) {
   let settings = {
     // todo make capital Youtube_URL
-    url: TicketMaster_URL,
+    url: TICKETMASTER_URL,
     data: searchTerm,
     //check is json is default
     dataType: "json",
@@ -101,9 +102,9 @@ function validateTicketMasterData(data) {
   } else {
     // notify user if there are no results
     $('.missing-results').html(`<div class="no-results shadow">
-  <p>  No results returned in your zip code.</p><p>  Please try a different zip code.</p></div>`);
-
-
+  <p>  No results returned for your area.</p><p>  Please try a different city.</p></div>`);
+    //remove progress cursor
+    $('*').removeClass('cursor-progress');
   }
 }
 
@@ -225,7 +226,7 @@ function youtubeData(data) {
 function getDataFromYoutube(item, youtubeData) {
   // console.log(item);
   let search = {
-    url: Youtube_URL,
+    url: YOUTUBE_URL,
     data: {
       'maxResults': '1',
       'part': 'snippet',

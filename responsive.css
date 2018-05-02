@@ -1,4 +1,13 @@
 @media (min-width: 550px) {
+  header {
+    background-color: #bc986a;
+    left: -2px;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    top: 1px;
+    z-index: 1;
+  }
   .form-layout {
     display: flex;
     flex-direction: column;
@@ -62,7 +71,6 @@
     color: white;
     width: 200px;
     padding: 10px;
-    /* margin-left: 15px; */
     margin-top: 250px;
     font-size: 20px;
     text-align: center;
@@ -92,7 +100,7 @@
     padding-right: 10px;
   }
   .event-info-format {
-    font-weight: 900;
+    font-weight: bolder;
     font-style: italic;
     text-decoration: underline;
   }
@@ -122,7 +130,21 @@
     margin-top: 10px;
   }
   h1 {
-    font-size: 5vw;
+    font-size: 22px;
+  }
+  .event-info-format {
+    font-weight: bolder;
+    font-style: italic;
+    text-decoration: underline;
+  }
+  header {
+    width: 100%;
+    background-color: #bc986a;
+    padding: 10px;
+    width: 100%;
+    position: sticky;
+    top: 1px;
+    z-index: 1;
   }
   .accordion-toggle {
     font-size: 4vw;
@@ -136,20 +158,8 @@
     margin-top: 5px;
     background-color: #FFFFFF;
   }
-  .event-name {
-    left: 10%;
-    width: 100%;
-    /* white-space: nowrap; */
-    /* overflow: hidden; */
-    /* text-overflow: ellipsis; */
-  }
-  .js-form {
-    margin: 0 auto;
-    width: 100%;
-  }
   .form-container {
     background-color: #bc986a;
-    margin-top: 80px;
     width: 100%;
   }
   .form-layout {
