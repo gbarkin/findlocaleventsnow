@@ -17,11 +17,15 @@ The goal for "Find Local Event's Now" is to show the user events in their area, 
 5.	Click the link to the ticket master evet to purchase tickets to the event
 
 ## Screenshots
-Login Screen/Landing Page:
+Landing Screen:
 
 ![Landing Screen](screenshots/landing_screen.PNG)
 
+Search Results Screen:
+
 ![Results Screen](screenshots/results_screen.PNG)
+
+Event Details Screen:
 
 ![Results Screen](screenshots/results_content_screen.PNG)
 
