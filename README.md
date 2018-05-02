@@ -10,7 +10,7 @@ The goal of this app is to present users with last minute entertainment options 
 
 # Live Demo
 
-- https://gbarkin.github.io/rightpriceevents/
+- https://gbarkin.github.io/findlocaleventsnow/
 
 # Steps to find events
 
